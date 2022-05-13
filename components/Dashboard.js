@@ -4,14 +4,16 @@ import Map from './Map'
 import CacheForm from './CacheForm'
 
 export default function Dashboard() {
+
+  // States
   const [accessToken, setAccessToken] = useState('')
 
-  // process.env.NEXT_PUBLIC_SERVER_URL = 54.227.201.7:8000
-  const NEXT_PUBLIC_SERVER_URL = 'http://54.227.201.7:8000'
+  // Environment vairables
+  const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
 
   const handleAuthRequest = () => {
-    console.log('SERVER URL: ' + NEXT_PUBLIC_SERVER_URL)
-    fetch(NEXT_PUBLIC_SERVER_URL + '/api/token/', {
+    console.log('SERVER URL: ' + SERVER_URL)
+    fetch(SERVER_URL + '/api/token/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -34,8 +36,8 @@ export default function Dashboard() {
   }
 
   const handleGetRequest = () => {
-    console.log(NEXT_PUBLIC_SERVER_URL)
-    fetch(NEXT_PUBLIC_SERVER_URL + '/api/v1/cache_explorer/', {
+    console.log(SERVER_URL)
+    fetch(SERVER_URL + '/api/v1/cache_explorer/', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
