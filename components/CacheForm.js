@@ -3,8 +3,11 @@ import Upload from './Upload.jsx';
 export default function CacheForm() {
 
   // Do stuff here after the image is successfully uploaded to AWS S3
-  const handleUploadImageFinished = () => {
-    console.log('Image successfully uploaded.')
+  const handleUploadImageFinished = (url) => {
+    
+    // This is the url we need to store in the database!
+    // If you look at the log and open this link it will redirect to the image you uploaded.
+    console.log('Image successfully uploaded: ', url)
   }
   
 
