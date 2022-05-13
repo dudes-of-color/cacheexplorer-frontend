@@ -30,7 +30,7 @@ const Home: NextPage = () => {
       <Footer />
 
 
-
+      <Dashboard />
 
 
 
