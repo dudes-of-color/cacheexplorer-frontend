@@ -7,30 +7,15 @@ import Footer from '../components/Footer'
 import Image from 'next/image'
 import { useAuth } from '../contexts/auth'
 
-
-
 const Home: NextPage = () => {
   // const { user, login } = useAuth()
   return (
     <div className="">
-      <Head>
-        <title>CachExplorer</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+
       <Header />
-      <LandingPage />
-      
-      {/* {user ? (
-        <>
-          <Dashboard />
-        </>
-      ) : (
-        <LandingPage />
-      )} */}
-      
+      <Dashboard />
+
       <Footer />
-
-
 
     </div>
   )
