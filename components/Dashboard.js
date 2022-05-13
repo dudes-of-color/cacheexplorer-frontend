@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { useState } from 'react'
-import Image from 'next/Image'
 import Map from './Map'
 import CacheForm from './CacheForm'
 
