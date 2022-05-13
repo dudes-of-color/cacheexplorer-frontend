@@ -16,8 +16,6 @@ const location = {
 const Map = () => (
 
   <div>
-    <h2>dudes of color</h2>
-
     <div style={{ height: '100vh', width: '100vh' }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}}
