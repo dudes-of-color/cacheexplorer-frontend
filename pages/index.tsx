@@ -7,8 +7,6 @@ import Footer from '../components/Footer'
 import Image from 'next/image'
 import { useAuth } from '../contexts/auth'
 
-
-
 const Home: NextPage = () => {
   // const { user, login } = useAuth()
   return (
@@ -29,9 +27,6 @@ const Home: NextPage = () => {
       )} */}
       
       <Footer />
-
-
-
     </div>
   )
 }
