@@ -1,12 +1,29 @@
 import React from 'react'
 import GoogleMapReact from 'google-map-react'
-import LocationPin from 'google-map-react'
-
+// import Marker from '../components/Marker'
 
 const center = {
   lat: 47.6062,
   lng: -122.3321
 }
+// if (typeof window !== "undefined") {
+//   const google = window.google;
+//   var myLatlng = new google.maps.LatLng(-25.363882, 131.044922);
+//   var mapOptions = {
+//     zoom: 4,
+//     center: myLatlng
+//   }
+//   var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+//   var marker = new google.maps.Marker({
+//     position: myLatlng,
+//     title: "Hello World!"
+//   });
+
+//   // To add the marker to the map, call setMap();
+//   marker.setMap(map);
+// }
+
 
 const Map = () => {
   const locations = [
@@ -21,6 +38,7 @@ return (
   <div>
     {locations.map((loc) => (<p>{loc.location}   {loc.lat} N, { loc.lng} W</p>)
     )}
+    
 
     <div style={{ height: '100vh', width: '100vh' }}>
       <GoogleMapReact
@@ -29,10 +47,10 @@ return (
         defaultZoom={12}
 
       >
-        {/* <LocationPin
-          lat={location.lat}
-          lng={location.lng}
-          text={location.address}
+        {/* <Marker
+          lat={locations.lat}
+          lng={locations.lng}
+          
         /> */}
       </GoogleMapReact>
     </div>
