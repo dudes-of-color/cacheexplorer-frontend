@@ -1,15 +1,73 @@
 import Upload from './Upload.jsx';
+import { useState } from 'react';
 
-export default function CacheForm() {
+export default function CacheForm(props) {
+
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [lat, setLat] = useState(0);
+  const [lon, setLon] = useState(0.0);
+  const [photo, setPhoto] = useState('');
+  const [auth, setAuth] = useState('');
+
+
 
   // Do stuff here after the image is successfully uploaded to AWS S3
   const handleUploadImageFinished = (url) => {
-    
+  
     // This is the url we need to store in the database!
     // If you look at the log and open this link it will redirect to the image you uploaded.
     console.log('Image successfully uploaded: ', url)
   }
-  
+
+  const handleChangeName = (event) => {
+    setName(event.target.value);
+}
+  const handleChangeDescription = (event) => {
+    setDescription(event.target.value);
+}
+  const handleChangeLat = (event) => {
+    setLat(event.target.value);
+}
+  const handleChangeLon = (event) => {
+    setLon(event.target.value);
+}
+
+//   const handleChangePhoto = (event) => {
+//     setPhoto(event.target.value);
+// }
+
+
+  const handlePostRequest = (e) => {
+    e.preventDefault();
+    console.log(props.accessToken)
+    fetch(process.env.NEXT_PUBLIC_SERVER_URL + '/api/v1/cache_explorer/' , {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + props.accessToken
+        },
+        body: JSON.stringify({
+          
+          'title': 'title',
+          'location': 'Location',
+          'lat':47.6062,
+          'long':122.3321,
+          'img':'photo',
+          'description':'description',
+          'owner': 1 
+
+        })
+    })
+    .then((res) => res.json())
+    .then((json) => {
+        //Perform actions after receiving response
+        // event.preventDefault()
+        console.log(json)
+    }).catch(function(err) {
+        console.log(err);
+    })
+}
 
   return (
     <>
@@ -17,9 +75,9 @@ export default function CacheForm() {
         <div className="">
           <div className="md:col-span-1"></div>
           <div className="mt-5 md:col-span-2 md:mt-0">
-            <form action="#" method="POST">
+            <form method="POST">
               <div className="shadow sm:overflow-hidden sm:rounded-md">
-                <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
+                <div className="px-4 py-5 space-y-6 bg-white sm:p-6">
                   <div className="grid grid-cols-3 gap-6"></div>
                   <div>
                     <label
@@ -33,8 +91,9 @@ export default function CacheForm() {
                         id="description"
                         type="text"
                         name="cacheName"
+                        onChange={handleChangeName}
                         rows={3}
-                        className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Enter Cache Name Here...."
                         defaultValue={''}
                       />
@@ -52,8 +111,9 @@ export default function CacheForm() {
                         id="description"
                         type="text"
                         name="description"
+                        onChange={handleChangeDescription}
                         rows={3}
-                        className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Enter Cache description Here...."
                         defaultValue={''}
                       />
@@ -71,8 +131,9 @@ export default function CacheForm() {
                       <input
                         id="lat"
                         name="lat"
+                        onChange={handleChangeLat}
                         rows={3}
-                        className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Enter Coordinates"
                         defaultValue={''}
                       />
@@ -89,8 +150,9 @@ export default function CacheForm() {
                       <input
                         id="lon"
                         name="lon"
+                        onChange={handleChangeLon}
                         rows={3}
-                        className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Enter Coordinates"
                         defaultValue={''}
                       />
@@ -101,10 +163,10 @@ export default function CacheForm() {
                     <label className="block text-sm font-medium text-gray-700">
                       Cache Photo
                     </label>
-                    <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+                    <div className="flex justify-center px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md">
                       <div className="space-y-1 text-center">
                         <svg
-                          className="mx-auto h-12 w-12 text-gray-400"
+                          className="w-12 h-12 mx-auto text-gray-400"
                           stroke="currentColor"
                           fill="none"
                           viewBox="0 0 48 48"
@@ -128,10 +190,10 @@ export default function CacheForm() {
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                  <button
+                <div className="px-4 py-3 text-right bg-gray-50 sm:px-6">
+                  <button onClick={handlePostRequest}
                     type="submit"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     Post
                   </button>
@@ -144,3 +206,106 @@ export default function CacheForm() {
     </>
   )
 }
+
+
+
+// const ApiExample: NextPage = () => {
+
+//   const [request, setRequest] = useState('');
+//   const [data, setData] = useState('');
+//   const [auth, setAuth] = useState('');
+//   const [accessToken, setAccessToken] = useState('');
+
+//   const handleChangeData = (event: React.ChangeEvent<HTMLInputElement>) => {
+//       setData(event.target.value);
+//   }
+
+//   const handleChangeAuth = (event:  React.ChangeEvent<HTMLInputElement>) => {
+//       setAuth(event.target.value);
+//   }
+
+//   const handleGetRequest = () => {
+//       console.log(process.env.NEXT_PUBLIC_SERVER_URL)
+//       fetch(process.env.NEXT_PUBLIC_SERVER_URL + '/api/v1/cookie_stand/' , {
+//           method: 'GET',
+//           headers: {
+//               'Content-Type': 'application/json',
+//               'Authorization': 'Bearer ' + accessToken
+//           }
+//       })
+//       .then((res) => res.json())
+//       .then((json) => {
+//           //Perform actions after receiving response
+//           console.log(json)
+//       }).catch(function(err) {
+//           console.log(err);
+//       })
+
+//   }
+
+//   const handlePostRequest = () => {
+//       fetch(process.env.REACT_APP_PROD_SERVER_URL + '/api/v1/cookie_stand/' , {
+//           method: 'POST',
+//           headers: {
+//               'Content-Type': 'application/json',
+//               'Authorization': 'Bearer ' + accessToken
+//           }
+//       })
+//       .then((res) => res.json())
+//       .then((json) => {
+//           //Perform actions after receiving response
+//           console.log(json)
+//       }).catch(function(err) {
+//           console.log(err);
+//       })
+//   }
+
+//   const handleAuthRequest = () => {
+//       console.log('SERVER URL: ' + process.env.NEXT_PUBLIC_SERVER_URL)
+//       fetch(process.env.NEXT_PUBLIC_SERVER_URL + '/api/token/' , {
+//           method: 'POST',
+//           headers: {
+//               'Content-Type': 'application/json',
+//           },
+//           body: JSON.stringify({
+//               'username': 'admin',
+//               'password': 'admin'
+//           })
+//       })
+//       .then((res) => res.json())
+//       .then((json) => {
+//           //Perform actions after receiving response
+//           setAccessToken(json.access)
+//           console.log(accessToken)
+
+//       }).catch(function(err) {
+//           console.log(err);
+//       })
+//   }
+
+//   return (
+//       <Container>
+//           <Box component="form">
+//               API Example
+//               <TextField id="outlined-basic" label="Data" variant="outlined" onChange={handleChangeData} />
+//               <TextField id="outlined-basic" label="Auth" variant="outlined" onChange={handleChangeAuth} />
+//               <ButtonGroup>
+//                   <Button 
+//                       onClick={handleGetRequest}>
+//                       Get 
+//                   </Button>
+//                   <Button
+//                       onClick={handlePostRequest}>
+//                       Post
+//                   </Button>
+//                   <Button
+//                       onClick={handleAuthRequest}>
+//                       Authorize
+//                   </Button>   
+//               </ButtonGroup>
+//           </Box>
+//       </Container>
+//   )
+// };
+
+// export default ApiExample;
