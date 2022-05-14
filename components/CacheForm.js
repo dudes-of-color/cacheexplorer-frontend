@@ -4,13 +4,12 @@ import { title } from 'process';
 import axios from 'axios';
 
 export default function CacheForm(props) {
-
+  const [imageUrl, setImageUrl] = useState();
     const handleUploadImageFinished = (url) => {
-
+      setImageUrl(url)
       // This is the url we need to store in the database!
       // If you look at the log and open this link it will redirect to the image you uploaded.
       console.log('Image successfully uploaded: ', url)
-      return url
     }
   
   
@@ -22,7 +21,7 @@ export default function CacheForm(props) {
       location: event.target.location.value,
       lat: event.target.lat.value,
       long: event.target.long.value,
-      img: {handleUploadImageFinished},
+      img: imageUrl || '',
       description: event.target.description.value,
     }
     console.log('Data:', {data})
