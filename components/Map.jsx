@@ -77,14 +77,13 @@ import { useState } from 'react'
       setMap(null)
     }, [])
 
-
     return isLoaded ? (
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
           zoom={12}
-          onLoad={onLoad}
-          onUnmount={onUnmount}
+          // onLoad={onLoad}
+          // onUnmount={onUnmount}
         >
           {
             locations.map(item => {
