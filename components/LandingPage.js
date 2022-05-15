@@ -5,8 +5,8 @@ export default function LandingPage() {
   return (
     <>
       <main className="relative flex min-h-screen items-center bg-[url('../src/hero1.jpg')] bg-cover bg-fixed bg-center px-6 text-white lg:px-32">
-        <section className="my-56 rounded-md bg-black bg-opacity-50 p-5">
-          <span className="font-bold uppercase tracking-widest">
+        <section className="p-5 my-56 bg-black bg-opacity-50 rounded-md">
+          <span className="font-bold tracking-widest uppercase">
             Dudes of Color Presents
           </span>
           <h1 className="mb-5 text-3xl font-bold lg:text-5xl">

@@ -12,12 +12,9 @@ export default function AboutUs() {
           <h3 className='text-2xl font-semibold'>Dudes of Color</h3>
           <p>Group of diverse Software Developers striving to better ourselves everyday</p>
         </div>
-
-
         <h2 className='my-10 text-6xl font-semibold text-center'>Meet Our Team</h2>
-
+        
         <section className='flex flex-row justify-center m-5'>
-
           <div className='p-10 mx-5 border rounded-lg bg-slate-100'>
             <div className='flex justify-center'>
             <Image src={eddie} width={200} height={200} />
@@ -78,26 +75,8 @@ export default function AboutUs() {
               <p><button>Contact</button></p>
             </div>
           </div>
-
-
-
-         
         </section>
-
       </main>
-
-
-
-
-      {/* <h1>I am About Page</h1>
-      <div className='grid-cols-5 gap-4'>
-        <div>Isaiah</div>
-        <div>Taylor</div>
-        <div>Eddie</div>
-        <div>Osborne</div>
-        <div>Edris</div>
-
-      </div> */}
       <Footer />
     </>
   )
