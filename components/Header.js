@@ -3,57 +3,51 @@ import Link from 'next/link'
 export default function Header() {
   return (
     <>
-      <nav className="border-y-2 border-gray-200 bg-white px-2 py-2.5 dark:bg-gray-800 sm:px-4">
+      <nav className="px-2 py-5 text-white bg-gray-800 border-y-2 sm:px-4">
         <div className="container flex flex-wrap items-center justify-between mx-auto">
           <Link
             href="/"
-            className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
           >
             <a href="https://placeholder.com">
               <img src="https://via.placeholder.com/50"></img>
             </a>
           </Link>
-          <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white"></span>
+          <span className="self-center text-xl font-semibold whitespace-nowrap"></span>
           <div className="hidden w-full md:block md:w-auto" id="mobile-menu">
             <ul className="flex flex-col mt-4 md:mt-0 md:flex-row md:space-x-8 md:text-sm md:font-medium">
               <li>
                 <Link
                   href="/"
-                  className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
                 >
-                  <a>Home</a>
+                  <a className='hover:text-green-600'>Home</a>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/AboutUs"
-                  className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
                 >
-                  <a>About The Devs</a>
+                  <a className='hover:text-green-600'>About The Devs</a>
                 </Link>
               </li>
               <li>
                 <Link
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
                 >
-                  <a>Login</a>
+                  <a className='hover:text-green-600'>Login</a>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/UserPage"
-                  className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
                 >
-                  <a>User Page</a>
+                  <a  className='hover:text-green-600'>User Page</a>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/findCache"
-                  className="block border-b border-gray-100 py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
                 >
-                  <a>Find Cache</a>
+                  <a className='hover:text-green-600'>Find Cache</a>
                 </Link>
               </li>
             </ul>
