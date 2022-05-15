@@ -2,6 +2,8 @@ import { useState } from 'react'
 
 export default function FindCache() {
   const [accessToken, setAccessToken] = useState('')
+  const [cacheData, setCacheData] = useState('')
+
   const NEXT_PUBLIC_SERVER_URL = 'http://54.227.201.7:8000'
 
   const handleGetRequest = () => {
@@ -16,7 +18,8 @@ export default function FindCache() {
       .then((res) => res.json())
       .then((json) => {
         //Perform actions after receiving response
-        console.log(json)
+        setCacheData(json)
+        console.log(cacheData)
       })
       .catch(function (err) {
         console.log(err)
