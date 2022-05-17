@@ -5,10 +5,10 @@ import Dashboard from '../components/Dashboard'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Image from 'next/image'
-import { useAuth } from '../contexts/auth'
+import LoginForm from '../components/LoginForm'
 
-const Home: NextPage = () => {
-  // const { user, login } = useAuth()
+const Home: NextPage = (props) => {
+
   return (
     <div className="">
       <Head>
@@ -17,15 +17,7 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <LandingPage />
-      
-      {/* {user ? (
-        <>
-          <Dashboard />
-        </>
-      ) : (
-        <LandingPage />
-      )} */}
-      
+      <LoginForm/>
       <Footer />
     </div>
   )

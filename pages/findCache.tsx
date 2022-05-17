@@ -13,7 +13,7 @@ const Home: NextPage = () => {
     <div className="">
 
       <Header />
-      <FindCache />
+      <FindCache/>
 
       <Footer />
 
