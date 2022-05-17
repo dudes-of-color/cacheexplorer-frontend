@@ -1,11 +1,12 @@
 import Upload from './Upload.jsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { title } from 'process';
 import axios from 'axios';
 import Map from './Map'
 
 export default function CacheForm(props) {
   const [imageUrl, setImageUrl] = useState();
+  const [triggerMapUpdate, setTriggerMapUpdate] = useState(false)
   const handleUploadImageFinished = (url) => {
     setImageUrl(url)
     // This is the url we need to store in the database!
@@ -13,6 +14,10 @@ export default function CacheForm(props) {
     console.log('Image successfully uploaded: ', url)
   }
 
+   useEffect(() => {
+    // Rerender the map component whenever triggerMapUpdate is changed
+    console.log('cacheform useeffect')
+  }, [triggerMapUpdate])
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -44,6 +49,9 @@ export default function CacheForm(props) {
     const response = await fetch(endpoint, options)
     const result = await response.json()
     console.log(result)
+
+    // Update map when data is successfully sent to database
+    setTriggerMapUpdate(prevState => !prevState)
   }
 
   return (
@@ -204,7 +212,7 @@ export default function CacheForm(props) {
             </form>
 
           </div>
-          <Map />
+          <Map accessToken={props.accessToken} triggerMapUpdate={props.triggerMapUpdate} />
         </div>
       </main>
 
