@@ -19,44 +19,6 @@ import { useState } from 'react'
   
     const [map, setMap] = React.useState(null)
 
-    const locations = [
-        {
-          name: "Item 1 description",
-          location: { 
-            lat: 47.6262,
-            lng: -122.305 
-          },
-        },
-        {
-          name: "Item 2 description",
-          location: { 
-            lat: 47.6162,
-            lng: -122.321
-          },
-        },
-        {
-          name: "Item 3 description",
-          location: { 
-            lat:47.6132,
-            lng:-122.3021
-          },
-        },
-        {
-          name: "Item 4 description",
-          location: { 
-            lat: 47.6102,
-            lng: -122.3321
-          },
-        },
-        {
-          name: "Item 5 description",
-          location: { 
-            lat: 47.6062,
-            lng: -122.321 
-          },
-        }
-      ];
-
     const containerStyle = {
         width: '70vh',
         height: '70vh'
@@ -82,8 +44,8 @@ import { useState } from 'react'
           mapContainerStyle={containerStyle}
           center={center}
           zoom={12}
-          // onLoad={onLoad}
-          // onUnmount={onUnmount}
+          onLoad={onLoad}
+          onUnmount={onUnmount}
         >
           {
             locations.map(item => {
