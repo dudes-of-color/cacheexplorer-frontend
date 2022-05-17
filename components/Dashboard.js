@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useState } from 'react'
-import Map from './Map'
+// import Map from './Map'
 import CacheForm from './CacheForm'
 
 export default function Dashboard() {
@@ -83,8 +83,6 @@ export default function Dashboard() {
           </li>
         </ul>
       </nav>
-
-      {/* Put API stuff here */}
       <button
         onClick={handleAuthRequest}
         className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
@@ -98,14 +96,7 @@ export default function Dashboard() {
       >
         Get Request
       </button>
-
-      <p className="flex justify-center">Profile Photo</p>
-      <div className="flex justify-center">
-        <img src="https://via.placeholder.com/200"></img>
-      </div>
       <CacheForm accessToken={accessToken} />
-
-      <Map />
     </>
   )
 }
