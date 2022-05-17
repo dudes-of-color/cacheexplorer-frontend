@@ -21,50 +21,50 @@ import { useState } from 'react'
 
     const locations = [
         {
-          name: "Location 1",
+          name: "Item 1 description",
           location: { 
-            lat: 41.3954,
-            lng: 2.162 
+            lat: 47.6262,
+            lng: -122.305 
           },
         },
         {
-          name: "Location 2",
+          name: "Item 2 description",
           location: { 
-            lat: 41.3917,
-            lng: 2.1649
+            lat: 47.6162,
+            lng: -122.321
           },
         },
         {
-          name: "Location 3",
+          name: "Item 3 description",
           location: { 
-            lat: 41.3773,
-            lng: 2.1585
+            lat:47.6132,
+            lng:-122.3021
           },
         },
         {
-          name: "Location 4",
+          name: "Item 4 description",
           location: { 
-            lat: -3.9,
-            lng: -39.0
+            lat: 47.6102,
+            lng: -122.3321
           },
         },
         {
-          name: "This is the secret cache",
+          name: "Item 5 description",
           location: { 
-            lat: -3.745,
-            lng: -38.523
+            lat: 47.6062,
+            lng: -122.321 
           },
         }
       ];
 
     const containerStyle = {
-        width: '100vh',
-        height: '100vh'
+        width: '70vh',
+        height: '70vh'
       };
       
       const center = {
-        lat: -3.745,
-        lng: -38.523
+        lat: 47.6062,
+        lng: -122.3321
       };
   
     const onLoad = React.useCallback(function callback(map) {
@@ -77,14 +77,13 @@ import { useState } from 'react'
       setMap(null)
     }, [])
 
-
     return isLoaded ? (
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={10}
-          onLoad={onLoad}
-          onUnmount={onUnmount}
+          zoom={12}
+          // onLoad={onLoad}
+          // onUnmount={onUnmount}
         >
           {
             locations.map(item => {
