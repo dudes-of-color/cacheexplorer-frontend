@@ -58,8 +58,8 @@ import { useState } from 'react'
       ];
 
     const containerStyle = {
-        width: '100vh',
-        height: '100vh'
+        width: '70vh',
+        height: '70vh'
       };
       
       const center = {
