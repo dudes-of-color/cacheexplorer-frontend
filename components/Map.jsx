@@ -2,60 +2,62 @@
 import React from 'react'
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
- export default function MediumMap() {
+ export default function Map(props) {
 
-    const [ selected, setSelected ] = useState({});
+    const [selected, setSelected ] = useState({});
+    const [map, setMap] = React.useState(null)
+    const [caches, setCaches] = React.useState([])
   
-    const onSelect = item => {
-      setSelected(item);
+
+    useEffect(() => {
+      console.log('inside useEfeect')
+      try {
+        if(props.accessToken) {
+          handleUpdateCaches()
+        }
+      } catch(e) {
+        console.log(e)
+      }
+
+    },[map, selected, caches, props.accessToken]);
+
+    const onSelect = cache => {
+      // we can add more properties to display in info window here
+      cache = {
+        name: cache.title,
+        location: {
+          lat: cache.lat,
+          lng: cache.long
+        }
+      }
+      setSelected(cache);
     }
 
     const { isLoaded } = useJsApiLoader({
       id: 'google-map-script',
       googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY
     })
-  
-    const [map, setMap] = React.useState(null)
 
-    const locations = [
-        {
-          name: "Item 1 description",
-          location: { 
-            lat: 47.6262,
-            lng: -122.305 
-          },
-        },
-        {
-          name: "Item 2 description",
-          location: { 
-            lat: 47.6162,
-            lng: -122.321
-          },
-        },
-        {
-          name: "Item 3 description",
-          location: { 
-            lat:47.6132,
-            lng:-122.3021
-          },
-        },
-        {
-          name: "Item 4 description",
-          location: { 
-            lat: 47.6102,
-            lng: -122.3321
-          },
-        },
-        {
-          name: "Item 5 description",
-          location: { 
-            lat: 47.6062,
-            lng: -122.321 
-          },
+
+    async function handleUpdateCaches() {
+      let server = process.env.NEXT_PUBLIC_SERVER_URL
+      let endpoint = server + '/api/v1/cache_explorer/'
+
+      let options = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + props.accessToken
         }
-      ];
+      }
+
+      let response = await fetch(endpoint, options)
+      let caches = await response.json()
+      console.log('updated caches', caches)
+      setCaches(caches)
+    }
 
     const containerStyle = {
         width: '70vh',
@@ -63,8 +65,8 @@ import { useState } from 'react'
       };
       
       const center = {
-        lat: 47.6062,
-        lng: -122.3321
+        lat: 41,
+        lng: -122
       };
   
     const onLoad = React.useCallback(function callback(map) {
@@ -86,12 +88,12 @@ import { useState } from 'react'
           // onUnmount={onUnmount}
         >
           {
-            locations.map(item => {
+            caches.map(cache => {
               return (
               <Marker 
-              key={item.name} 
-              position={item.location}
-              onClick={() => onSelect(item)}
+              key={cache.title} 
+              position={{lat: cache.lat, lng: cache.long}}
+              onClick={() => onSelect(cache)}
               />
               )
             })
