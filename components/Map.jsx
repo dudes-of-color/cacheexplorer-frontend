@@ -2,96 +2,108 @@
 import React from 'react'
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useAuth } from '../contexts/auth'
 
- export default function MediumMap() {
+ export default function Map(props) {
 
-    const [ selected, setSelected ] = useState({});
-  
-    const onSelect = item => {
-      setSelected(item);
+    // Destructure values from auth context to obtain identity
+    const { user, tokens } = useAuth()
+
+    const [selected, setSelected ] = useState({});
+    const [map, setMap] = useState(null)
+    const [displayedCaches, setDisplayedCaches] = useState([])
+    const [lastSelectedLocation, setLastSelectedLocation] = useState()
+
+
+    useEffect(() => {
+
+    },[selected, displayedCaches]);
+
+    const onSelect = cache => {
+      // we can add more properties to display in info window here
+      cache = {
+        name: cache.title,
+        location: {
+          lat: cache.lat,
+          lng: cache.long
+        }
+      }
+      setSelected(cache);
+      setLastSelectedLocation(cache.location)
     }
 
     const { isLoaded } = useJsApiLoader({
       id: 'google-map-script',
       googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY
     })
-  
-    const [map, setMap] = React.useState(null)
 
-    const locations = [
-        {
-          name: "Item 1 description",
-          location: { 
-            lat: 47.6262,
-            lng: -122.305 
-          },
-        },
-        {
-          name: "Item 2 description",
-          location: { 
-            lat: 47.6162,
-            lng: -122.321
-          },
-        },
-        {
-          name: "Item 3 description",
-          location: { 
-            lat:47.6132,
-            lng:-122.3021
-          },
-        },
-        {
-          name: "Item 4 description",
-          location: { 
-            lat: 47.6102,
-            lng: -122.3321
-          },
-        },
-        {
-          name: "Item 5 description",
-          location: { 
-            lat: 47.6062,
-            lng: -122.321 
-          },
+
+    async function handleUpdateCaches() {
+      console.log('inside handle update caches')
+      let server = process.env.NEXT_PUBLIC_SERVER_URL
+      let endpoint = server + '/api/v1/cache_explorer/'
+
+      let options = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + tokens
         }
-      ];
+      }
+
+      let response = await fetch(endpoint, options)
+      let caches = await response.json()
+      console.log(caches)
+      setDisplayedCaches(caches)
+    }
 
     const containerStyle = {
         width: '70vh',
         height: '70vh'
       };
       
-      const center = {
+      const seattleLocation = {
         lat: 47.6062,
         lng: -122.3321
       };
   
+      // Do stuff when the map is first loaded
     const onLoad = React.useCallback(function callback(map) {
-      const bounds = new window.google.maps.LatLngBounds(center);
+      console.log('map onLoad')
+      const bounds = new window.google.maps.LatLngBounds(lastSelectedLocation || seattleLocation);
       map.fitBounds(bounds);
       setMap(map)
+      handleUpdateCaches()
     }, [])
   
     const onUnmount = React.useCallback(function callback(map) {
       setMap(null)
     }, [])
 
+    // onClick handler for Map component
+    const onMapInteract = React.useCallback(function callback(map) {
+      handleUpdateCaches()
+    }, [])
+
     return isLoaded ? (
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={center}
-          zoom={12}
-          // onLoad={onLoad}
-          // onUnmount={onUnmount}
+          center={lastSelectedLocation || seattleLocation}
+          zoom={10}
+          onDragEnd={onMapInteract}
+          onLoad={onLoad}
+          onUnmount={onUnmount}
         >
           {
-            locations.map(item => {
+            // Display caches if logged in and caches received from database
+           user && displayedCaches && 
+            displayedCaches?.map(cache => {
               return (
               <Marker 
-              key={item.name} 
-              position={item.location}
-              onClick={() => onSelect(item)}
+              key={cache.id} 
+              position={{lat: cache.lat, lng: cache.long}}
+              onClick={() => onSelect(cache)}
               />
               )
             })
