@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { useAuth } from '../contexts/auth'
-import Map from '../components/Map'
+import Map from './Map'
+
 
 // Environment variables
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
@@ -76,7 +77,7 @@ export default function FindCache() {
     <main>
       <button
         onClick={handleUpdateCaches}
-        className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+        className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
       >
         Get Request
       </button>
