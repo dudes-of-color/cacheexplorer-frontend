@@ -1,6 +1,8 @@
 import { useAuth } from '../contexts/auth'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import toast from "./ToastMessage";
+
 
 export default function LoginForm() {
   // Use router to allow redirection after login
@@ -33,6 +35,8 @@ export default function LoginForm() {
     } else {
       // Login failed
       console.log("Login failure")
+      notify("error", "Login failed. Try again")
+
       
       // Trigger warning field and clear other fields
       setIncorrectCredentials(true)
@@ -43,6 +47,7 @@ export default function LoginForm() {
   // Redirect to homepage after successful login
   useEffect(() => {
     if (loginSuccess) {
+      notify("success", "Successfully logged in!")
       router.push('/')
     }
   }, [loginSuccess])
@@ -54,8 +59,19 @@ export default function LoginForm() {
     setPassword('')
   }
 
+    // Toast notify message
+    const notify = React.useCallback((type, message) => {
+      toast({ type, message });
+    }, []);
+  
+  
+  // Dismiss toast
+    const dismiss = React.useCallback(() => {
+      toast.dismiss();
+    }, []);
+
   return (
-    <div className="flex flex-col h-full items-center justify-center overflow-hidden bg-yellow-400">
+    <div className="flex flex-col h-full items-center justify-center overflow-hidden bg-gray-700">
       {/* Do not provide login fields if a user is already logged in  */}
       {!user?.username && (
         <>

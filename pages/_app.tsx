@@ -4,6 +4,8 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Head from 'next/head'
 import { AuthProvider } from '../contexts/auth'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -21,6 +23,15 @@ function MyApp({ Component, pageProps }: AppProps) {
         </div>
         <div className="grow">
           <Component {...pageProps} />
+          <ToastContainer
+            position="top-left"
+            autoClose={4000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            draggable={false}
+            closeOnClick
+            pauseOnHover
+          />
         </div>
         <div className="flex-none">
           <Footer />

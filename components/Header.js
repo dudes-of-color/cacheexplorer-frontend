@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { useAuth } from '../contexts/auth'
 import axios from 'axios'
+import toast from "./ToastMessage";
+import React from 'react'
 
 // Environment variables
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
@@ -9,7 +11,17 @@ export default function Header() {
 
   const { user, tokens, logout, refresh } = useAuth()
 
-
+      // Toast notify message
+      const notify = React.useCallback((type, message) => {
+        toast({ type, message });
+      }, []);
+    
+    
+    // Dismiss toast
+      const dismiss = React.useCallback(() => {
+        toast.dismiss();
+      }, []);
+  
   const handleLogout = async () => {
     
     let options = {
@@ -32,6 +44,7 @@ export default function Header() {
       .then((res) => {
         // Perform actions after receiving response
         console.log(res)
+        notify("info", "Logged out.")
       })
       .catch((err) => {
         // POST failure
