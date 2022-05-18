@@ -1,9 +1,11 @@
 import React from 'react'
-import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker, DirectionsRenderer} from '@react-google-maps/api';
 
 import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/auth'
 import MarkerModal from './MarkerModal'
+import toast from "./ToastMessage";
+
 
   //Environment variables
   const MARKER_ICON = process.env.NEXT_PUBLIC_CACHE_MARKER_URL
@@ -15,7 +17,12 @@ import MarkerModal from './MarkerModal'
 
     const [map, setMap] = useState(null)
     const [displayedCaches, setDisplayedCaches] = useState([])
-    const [lastSelectedLocation, setLastSelectedLocation] = useState()
+
+    // If geolocation services are disabled we will used seattle as default
+    const seattleLocation = { lat: 47.6062, lng: -122.3321};
+    const [center, setCenter] = useState(seattleLocation);
+    const [activeGeolocation, setActiveGeolocation] = useState(false)
+    const [directions, setDirections] = useState(undefined)
 
     // Map Marker and associated modal
     const [selected, setSelected ] = useState({});
@@ -24,7 +31,7 @@ import MarkerModal from './MarkerModal'
 
     useEffect(() => {
 
-    },[selected, displayedCaches]);
+    },[selected, displayedCaches, center]);
 
     const onSelect = cache => {
       // we can add more properties to display in info window here
@@ -38,7 +45,6 @@ import MarkerModal from './MarkerModal'
         img: cache.img
       }
       setSelected(cache);
-      setLastSelectedLocation(cache.location)
     }
 
     const { isLoaded } = useJsApiLoader({
@@ -48,7 +54,6 @@ import MarkerModal from './MarkerModal'
 
 
     async function handleUpdateCaches() {
-      console.log('inside handle update caches')
       let server = process.env.NEXT_PUBLIC_SERVER_URL
       let endpoint = server + '/api/v1/cache_explorer/'
 
@@ -62,7 +67,7 @@ import MarkerModal from './MarkerModal'
 
       let response = await fetch(endpoint, options)
       let caches = await response.json()
-      console.log(caches)
+      console.table(caches)
       setDisplayedCaches(caches)
     }
 
@@ -71,16 +76,10 @@ import MarkerModal from './MarkerModal'
         height: '70vh'
       };
       
-      const seattleLocation = {
-        lat: 47.6062,
-        lng: -122.3321
-      };
-  
       // Do stuff when the map is first loaded
     const onLoad = React.useCallback(function callback(map) {
-      //const bounds = new window.google.maps.LatLngBounds(lastSelectedLocation || seattleLocation);
-      //map.fitBounds(bounds);
       setMap(map)
+      geoLocate(map)
       handleUpdateCaches()
     }, [])
   
@@ -93,11 +92,43 @@ import MarkerModal from './MarkerModal'
       handleUpdateCaches()
     }, [])
 
+    const geoLocate = (map) => {
+        // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+
+          console.log(`Your current position: [lat: ${pos.lat}, lng: ${pos.lng}]`)
+          setCenter(pos)
+          setMap(map)
+          setActiveGeolocation(true)
+          notify("info", "Heads up! Browser currently has access to your location.")
+        },
+        () => {
+          // Location permissions are not active
+          notify("warning", "You need to enable browser location services.")
+        }
+      );
+    } else {
+      // Browser doesn't support Geolocation
+      notify("warning", "Your browser does not support geolocation.")
+    }
+    }
+
+      // Toast notify message
+    const notify = React.useCallback((type, message) => {
+      toast({ type, message });
+    }, []);
+
     return isLoaded ? (
 
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={lastSelectedLocation || seattleLocation}
+          center={center}
           zoom={10}
           onDragEnd={onMapInteract}
           onLoad={onLoad}
@@ -117,7 +148,13 @@ import MarkerModal from './MarkerModal'
               )
             })
          }
-        { selected.location && 
+         {/* display your location pin if geolocation services are active */}
+         { activeGeolocation &&
+          (<Marker key={'my-location'} position={center}/>)
+         }
+        
+        { // Display a modal if marker is selected
+          selected.location && 
           <MarkerModal
           name={selected.name}
           description={selected.description}
@@ -125,7 +162,14 @@ import MarkerModal from './MarkerModal'
           lat={selected.location.lat}
           lng={selected.location.lng}
           onCloseClick={() => setSelected({})}
+          currentLocation={activeGeolocation ? center : undefined}
+          setDirections={setDirections}
+          directions={directions}
             />
+        }
+        { //Display directions if currently selected
+          directions &&
+          <DirectionsRenderer directions={directions}/>
         }
           <></>
         </GoogleMap>
