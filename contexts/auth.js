@@ -44,6 +44,7 @@ export function AuthProvider(props) {
             email: decodedAccess.email, // TODO: Not contained within JWT payload, needs to be added by backend if needed
             id: decodedAccess.user_id,
           },
+          refresh: res.data.refresh
         }
 
         // Prevent stale closure by destructuring object fields and merging with previous object
@@ -63,6 +64,7 @@ export function AuthProvider(props) {
   }
 
   function logout() {
+    console.log('Logging out')
     const newState = {
       tokens: null,
       user: null,
