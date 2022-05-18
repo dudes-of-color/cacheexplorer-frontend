@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import axios from 'axios'
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL
 const tokenUrl = `${baseUrl}/api/token/`
+const registerUrl = `${baseUrl}/api/user/register/`
 
 const AuthContext = createContext()
 
@@ -18,6 +19,7 @@ export function AuthProvider(props) {
     user: null,
     login,
     logout,
+    register,
   })
 
   async function login(username, password) {
@@ -61,6 +63,32 @@ export function AuthProvider(props) {
     
     // Will be either true or false based on return states
     return success
+  }
+
+  async function register(username, email, password) {
+
+        // Send request and unpack JWT tokens
+        const success = await axios
+        .post(registerUrl, {
+          username,
+          email,
+          password,
+        })
+        .then((res) => {
+          console.log(res)
+          
+          // Return successful state to sign up form
+          return true
+        })
+        .catch((err) => {
+          console.log("Sign up failure. Please try again later.")
+          console.log(err)
+          return false
+        })
+      
+      // Will be either true or false based on return states
+      return success
+
   }
 
   function logout() {

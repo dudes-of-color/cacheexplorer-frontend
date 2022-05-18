@@ -84,8 +84,8 @@ export default function Header() {
             }
             {!user?.username &&
               <li>
-                <Link href="/Register">
-                  <a className="hover:text-green-600">Register</a>
+                <Link href="/SignUp">
+                  <a className="hover:text-green-600">Sign up</a>
                 </Link>
               </li>
             }
