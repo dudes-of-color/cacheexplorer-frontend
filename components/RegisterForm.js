@@ -37,6 +37,7 @@ export default function LoginForm() {
     } else {
       // Login failed
       console.log("Sign up failure")
+      notify("error", "Error while signing up, try again.")
       
       // Trigger warning field and clear other fields
       setIncorrectCredentials(true)
