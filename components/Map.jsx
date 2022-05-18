@@ -87,7 +87,9 @@ import { useAuth } from '../contexts/auth'
     }, [])
 
     return isLoaded ? (
+      
         <GoogleMap
+        
           mapContainerStyle={containerStyle}
           center={lastSelectedLocation || seattleLocation}
           zoom={10}
@@ -100,13 +102,16 @@ import { useAuth } from '../contexts/auth'
            user && displayedCaches && 
             displayedCaches?.map(cache => {
               return (
+                
               <Marker 
               key={cache.id} 
               position={{lat: cache.lat, lng: cache.long}}
               onClick={() => onSelect(cache)}
               />
+
               )
             })
+            
          }
          {
             selected.location && 
