@@ -26,14 +26,6 @@ export default function Header() {
                 <a className="hover:text-green-600">About The Devs</a>
               </Link>
             </li>
-            {/* Don't show login field if user is logged in */}
-            {!user?.username &&
-              <li>
-                <Link href="/Login">
-                  <a className="hover:text-green-600">Login</a>
-                </Link>
-              </li>
-            }
             <li>
               <Link href="/UserPage">
                 <a className="hover:text-green-600">User Page</a>
@@ -44,6 +36,28 @@ export default function Header() {
                 <a className="hover:text-green-600">Find Cache</a>
               </Link>
             </li>
+                        {/* Don't show login field if user is logged in */}
+                        {!user?.username &&
+              <li>
+                <Link href="/Login">
+                  <a className="hover:text-green-600">Login</a>
+                </Link>
+              </li>
+            }
+            {!user?.username &&
+              <li>
+                <Link href="/Register">
+                  <a className="hover:text-green-600">Register</a>
+                </Link>
+              </li>
+            }
+            {user?.username &&
+              <li>
+                <Link href="/">
+                  <a className="hover:text-green-600">Logout</a>
+                </Link>
+              </li>
+            }
           </ul>
         </div>
       </div>
