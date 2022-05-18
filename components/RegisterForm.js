@@ -1,6 +1,7 @@
 import { useAuth } from '../contexts/auth'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import toast from "./ToastMessage";
 
 export default function LoginForm() {
   // Use router to allow redirection after login
@@ -54,10 +55,21 @@ export default function LoginForm() {
     }
   }
 
+  // Toast notify message
+  const notify = React.useCallback((type, message) => {
+    toast({ type, message });
+  }, []);
+
+
+// Dismiss toast
+  const dismiss = React.useCallback(() => {
+    toast.dismiss();
+  }, []);
+
   // Redirect to homepage after successful login
   useEffect(() => {
     if (registerSuccess) {
-      alert('successful sign up. you may now login with these credentials')
+      notify("success", "Successfully signed up! You may now use these credentials to log in")
       router.push('/Login')
     }
 
