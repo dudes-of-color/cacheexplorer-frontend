@@ -64,10 +64,6 @@ import MarkerModal from './MarkerModal'
       setDisplayedCaches(caches)
     }
 
-    function handleClickCacheLink() {
-       //
-    }
-
     const containerStyle = {
         width: '70vh',
         height: '70vh'
