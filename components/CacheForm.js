@@ -1,8 +1,9 @@
 import Upload from './Upload.jsx'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import Map from './Map'
 import { useAuth } from '../contexts/auth'
+import toast from "./ToastMessage";
 
 // Environment variables
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
@@ -14,11 +15,27 @@ export default function CacheForm() {
   // State
   const [imageUrl, setImageUrl] = useState('')
 
+  // Toast notify message
+  const notify = React.useCallback((type, message) => {
+    toast({ type, message });
+  }, []);
+
+
+// Dismiss toast
+  const dismiss = React.useCallback(() => {
+    toast.dismiss();
+  }, []);
+
   // This is the url we need to store in the database!
   // If you look at the log and open this link it will redirect to the image you uploaded.
   const handleUploadImageFinished = (url) => {
     setImageUrl(url)
     console.log('Image successfully uploaded: ', url)
+    notify("success", "Image successfully uploaded!")
+  }
+
+  const handleUploadImageError = () => {
+    notify("error", "Error uploading image, try again.")
   }
 
   // Handle submitting a cache from a logged-in user
@@ -52,9 +69,12 @@ export default function CacheForm() {
       .then((res) => {
         // TODO: Perform actions after receiving response
         console.table(res.data)
+        notify("success", "Cache successfully created!")
+
       })
       .catch((err) => {
         // POST failure
+        notify("error", "Error while creating cache. Please try again")
         console.log(err)
       })
   }
@@ -191,7 +211,9 @@ export default function CacheForm() {
                         />
                       </svg>
                       <div className="flex text-sm text-gray-600">
-                        <Upload handleFinish={handleUploadImageFinished} />
+                        <Upload 
+                        handleFinish={handleUploadImageFinished}
+                        onError={handleUploadImageError} />
                       </div>
                       <p className="text-xs text-gray-500">
                         PNG, JPG, GIF up to 10MB
@@ -205,7 +227,7 @@ export default function CacheForm() {
                   type="submit"
                   className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
-                  Post
+                  Create
                 </button>
               </div>
             </div>
