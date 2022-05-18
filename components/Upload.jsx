@@ -1,20 +1,8 @@
 import React, { Component } from "react";
 import ReactS3Uploader from "react-s3-uploader";
-import toast from "./ToastMessage";
 
 const S3_SERVICE_URL = process.env.NEXT_PUBLIC_S3_SERVICE_URL
 
-
-  // Toast notify message
-  const notify = React.useCallback((type, message) => {
-    toast({ type, message });
-  }, []);
-
-
-// Dismiss toast
-  const dismiss = React.useCallback(() => {
-    toast.dismiss();
-  }, []);
 
 class Upload extends Component {
 
@@ -36,7 +24,6 @@ class Upload extends Component {
 
   onUploadError = e => {
     this.setState({ loading: false, progress: 0 });
-    notify("error", "Error uploading image, try again.")
   };
 
   onUploadFinish = e => {
