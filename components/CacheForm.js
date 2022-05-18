@@ -69,9 +69,12 @@ export default function CacheForm() {
       .then((res) => {
         // TODO: Perform actions after receiving response
         console.table(res.data)
+        notify("success", "Cache successfully created!")
+
       })
       .catch((err) => {
         // POST failure
+        notify("error", "Error while creating cache. Please try again")
         console.log(err)
       })
   }
