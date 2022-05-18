@@ -71,7 +71,7 @@ export default function LoginForm() {
     }, []);
 
   return (
-    <div className="flex flex-col h-full items-center justify-center overflow-hidden bg-yellow-400">
+    <div className="flex flex-col h-full items-center justify-center overflow-hidden bg-gray-700">
       {/* Do not provide login fields if a user is already logged in  */}
       {!user?.username && (
         <>
