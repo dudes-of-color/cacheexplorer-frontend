@@ -27,7 +27,7 @@ export default function CacheForm() {
     event.preventDefault()
 
     // Construct data payload
-    const data = {
+    let data = {
       title: event.target.title.value,
       location: event.target.location.value,
       lat: event.target.lat.value,
@@ -37,14 +37,18 @@ export default function CacheForm() {
     }
     console.log('Data:', { data })
 
+    let options =  {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + tokens,
+      }
+    }
+
+    let endpoint = `${SERVER_URL}/api/v1/cache_explorer/`
+
     // Post request to server
     const response = await axios
-      .post(`${SERVER_URL}/api/v1/cache_explorer/`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + tokens,
-        },
-      })
+      .post(endpoint, data, options)
       .then((res) => {
         // TODO: Perform actions after receiving response
         console.table(res.data)
