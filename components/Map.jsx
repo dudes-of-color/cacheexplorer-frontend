@@ -3,8 +3,12 @@ import React from 'react'
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 
 import { useState, useEffect } from 'react'
+import { useAuth } from '../contexts/auth'
 
  export default function Map(props) {
+
+    // Destructure values from auth context to obtain identity
+    const { user, tokens } = useAuth()
 
     const [selected, setSelected ] = useState({});
     const [map, setMap] = useState(null)
@@ -13,16 +17,8 @@ import { useState, useEffect } from 'react'
 
 
     useEffect(() => {
-      console.log('inside map useEfeect')
-      try {
-        if(props.accessToken) {
-          handleUpdateCaches()
-        }
-      } catch(e) {
-        console.log(e)
-      }
 
-    },[props.accessToken, props.triggerMapUpdate, displayedCaches]);
+    },[selected, displayedCaches]);
 
     const onSelect = cache => {
       // we can add more properties to display in info window here
@@ -44,6 +40,7 @@ import { useState, useEffect } from 'react'
 
 
     async function handleUpdateCaches() {
+      console.log('inside handle update caches')
       let server = process.env.NEXT_PUBLIC_SERVER_URL
       let endpoint = server + '/api/v1/cache_explorer/'
 
@@ -51,20 +48,15 @@ import { useState, useEffect } from 'react'
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + props.accessToken
+          'Authorization': 'Bearer ' + tokens
         }
       }
 
       let response = await fetch(endpoint, options)
       let caches = await response.json()
-
-      // Changes in database since last render
-      if(!cacheEquals(caches, displayedCaches)) {
-        console.log('resetting cache')
-        setDisplayedCaches(caches)
-      }
+      console.log(caches)
+      setDisplayedCaches(caches)
     }
-
 
     const containerStyle = {
         width: '70vh',
@@ -76,14 +68,22 @@ import { useState, useEffect } from 'react'
         lng: -122.3321
       };
   
+      // Do stuff when the map is first loaded
     const onLoad = React.useCallback(function callback(map) {
+      console.log('map onLoad')
       const bounds = new window.google.maps.LatLngBounds(lastSelectedLocation || seattleLocation);
       map.fitBounds(bounds);
       setMap(map)
+      handleUpdateCaches()
     }, [])
   
     const onUnmount = React.useCallback(function callback(map) {
       setMap(null)
+    }, [])
+
+    // onClick handler for Map component
+    const onMapInteract = React.useCallback(function callback(map) {
+      handleUpdateCaches()
     }, [])
 
     return isLoaded ? (
@@ -91,14 +91,17 @@ import { useState, useEffect } from 'react'
           mapContainerStyle={containerStyle}
           center={lastSelectedLocation || seattleLocation}
           zoom={10}
-          //onLoad={onLoad}
-          //onUnmount={onUnmount}
+          onDragEnd={onMapInteract}
+          onLoad={onLoad}
+          onUnmount={onUnmount}
         >
           {
-            displayedCaches.map(cache => {
+            // Display caches if logged in and caches received from database
+           user && displayedCaches && 
+            displayedCaches?.map(cache => {
               return (
               <Marker 
-              key={cache.title} 
+              key={cache.id} 
               position={{lat: cache.lat, lng: cache.long}}
               onClick={() => onSelect(cache)}
               />
