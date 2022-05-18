@@ -4,16 +4,20 @@ import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-map
 
 import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/auth'
+import MarkerModal from './MarkerModal'
 
  export default function Map(props) {
 
     // Destructure values from auth context to obtain identity
     const { user, tokens } = useAuth()
 
-    const [selected, setSelected ] = useState({});
     const [map, setMap] = useState(null)
     const [displayedCaches, setDisplayedCaches] = useState([])
     const [lastSelectedLocation, setLastSelectedLocation] = useState()
+
+    // Map Marker and associated modal
+    const [selected, setSelected ] = useState({});
+
 
 
     useEffect(() => {
@@ -27,7 +31,9 @@ import { useAuth } from '../contexts/auth'
         location: {
           lat: cache.lat,
           lng: cache.long
-        }
+        },
+        description: cache.description,
+        img: cache.img
       }
       setSelected(cache);
       setLastSelectedLocation(cache.location)
@@ -58,6 +64,10 @@ import { useAuth } from '../contexts/auth'
       setDisplayedCaches(caches)
     }
 
+    function handleClickCacheLink() {
+       //
+    }
+
     const containerStyle = {
         width: '70vh',
         height: '70vh'
@@ -70,9 +80,8 @@ import { useAuth } from '../contexts/auth'
   
       // Do stuff when the map is first loaded
     const onLoad = React.useCallback(function callback(map) {
-      console.log('map onLoad')
-      const bounds = new window.google.maps.LatLngBounds(lastSelectedLocation || seattleLocation);
-      map.fitBounds(bounds);
+      //const bounds = new window.google.maps.LatLngBounds(lastSelectedLocation || seattleLocation);
+      //map.fitBounds(bounds);
       setMap(map)
       handleUpdateCaches()
     }, [])
@@ -87,9 +96,8 @@ import { useAuth } from '../contexts/auth'
     }, [])
 
     return isLoaded ? (
-      
+
         <GoogleMap
-        
           mapContainerStyle={containerStyle}
           center={lastSelectedLocation || seattleLocation}
           zoom={10}
@@ -102,29 +110,24 @@ import { useAuth } from '../contexts/auth'
            user && displayedCaches && 
             displayedCaches?.map(cache => {
               return (
-                
               <Marker 
               key={cache.id} 
               position={{lat: cache.lat, lng: cache.long}}
               onClick={() => onSelect(cache)}
               />
-
               )
             })
-            
          }
-         {
-            selected.location && 
-            (
-              <InfoWindow
-              position={selected.location}
-              clickable={true}
-              onCloseClick={() => setSelected({})}
-            >
-            <p>{selected.name}</p>
-            </InfoWindow>
-            )
-         }
+        { selected.location && 
+          <MarkerModal
+          name={selected.name}
+          description={selected.description}
+          img={selected.img}
+          lat={selected.location.lat}
+          lng={selected.location.lng}
+          onCloseClick={() => setSelected({})}
+            />
+        }
           <></>
         </GoogleMap>
     ) : <></>
