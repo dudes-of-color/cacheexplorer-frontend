@@ -1,10 +1,12 @@
-
 import React from 'react'
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 
 import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/auth'
 import MarkerModal from './MarkerModal'
+
+  //Environment variables
+  const MARKER_ICON = process.env.NEXT_PUBLIC_CACHE_MARKER_URL
 
  export default function Map(props) {
 
@@ -106,7 +108,8 @@ import MarkerModal from './MarkerModal'
            user && displayedCaches && 
             displayedCaches?.map(cache => {
               return (
-              <Marker 
+              <Marker
+              icon={MARKER_ICON}
               key={cache.id} 
               position={{lat: cache.lat, lng: cache.long}}
               onClick={() => onSelect(cache)}
