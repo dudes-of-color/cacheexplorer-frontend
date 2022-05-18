@@ -1,8 +1,9 @@
 import Upload from './Upload.jsx'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import Map from './Map'
 import { useAuth } from '../contexts/auth'
+import toast from "./ToastMessage";
 
 // Environment variables
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
@@ -14,11 +15,27 @@ export default function CacheForm() {
   // State
   const [imageUrl, setImageUrl] = useState('')
 
+  // Toast notify message
+  const notify = React.useCallback((type, message) => {
+    toast({ type, message });
+  }, []);
+
+
+// Dismiss toast
+  const dismiss = React.useCallback(() => {
+    toast.dismiss();
+  }, []);
+
   // This is the url we need to store in the database!
   // If you look at the log and open this link it will redirect to the image you uploaded.
   const handleUploadImageFinished = (url) => {
     setImageUrl(url)
     console.log('Image successfully uploaded: ', url)
+    notify("success", "Image successfully uploaded!")
+  }
+
+  const handleUploadImageError = () => {
+    notify("error", "Error uploading image, try again.")
   }
 
   // Handle submitting a cache from a logged-in user
@@ -191,7 +208,9 @@ export default function CacheForm() {
                         />
                       </svg>
                       <div className="flex text-sm text-gray-600">
-                        <Upload handleFinish={handleUploadImageFinished} />
+                        <Upload 
+                        handleFinish={handleUploadImageFinished}
+                        onError={handleUploadImageError} />
                       </div>
                       <p className="text-xs text-gray-500">
                         PNG, JPG, GIF up to 10MB
