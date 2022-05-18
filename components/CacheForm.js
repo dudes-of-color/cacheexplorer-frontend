@@ -81,15 +81,12 @@ export default function CacheForm() {
 
   return (
     <main className=" min-h-screen bg-[url('../src/hero1.jpg')] bg-cover bg-fixed bg-center px-6 lg:px-32">
-      <p className="flex justify-center pt-10">Profile Photo</p>
-      <div className="flex justify-center">
-        <img src="https://via.placeholder.com/200"></img>
-      </div>
+     
       <div className="flex justify-center py-20">
-        <div className="m-5 w-1/3 md:col-span-2 md:mt-0">
+        <div className="w-1/3 m-5 md:col-span-2 md:mt-0">
           <form onSubmit={handleSubmit} className="">
             <div className="shadow sm:overflow-hidden sm:rounded-md">
-              <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
+              <div className="px-4 py-5 space-y-6 bg-white sm:p-6">
                 <div>
                   <label
                     htmlFor="title"
@@ -103,7 +100,7 @@ export default function CacheForm() {
                       type="text"
                       name="title"
                       rows={3}
-                      className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       placeholder="Enter Cache Name Here...."
                       defaultValue={''}
                       required
@@ -123,7 +120,7 @@ export default function CacheForm() {
                       type="text"
                       name="location"
                       rows={3}
-                      className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       placeholder="Tell us where you hid it"
                       defaultValue={''}
                       required
@@ -143,7 +140,7 @@ export default function CacheForm() {
                       type="text"
                       name="description"
                       rows={3}
-                      className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       placeholder="Enter Cache description Here...."
                       defaultValue={''}
                       required
@@ -163,7 +160,7 @@ export default function CacheForm() {
                       id="lat"
                       name="lat"
                       rows={3}
-                      className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       placeholder="Enter Coordinates"
                       defaultValue={''}
                       required
@@ -182,7 +179,7 @@ export default function CacheForm() {
                       id="long"
                       name="long"
                       rows={3}
-                      className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       placeholder="Enter Coordinates"
                       defaultValue={''}
                       required
@@ -194,10 +191,10 @@ export default function CacheForm() {
                   <label className="block text-sm font-medium text-gray-700">
                     Cache Photo
                   </label>
-                  <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+                  <div className="flex justify-center px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md">
                     <div className="space-y-1 text-center">
                       <svg
-                        className="mx-auto h-12 w-12 text-gray-400"
+                        className="w-12 h-12 mx-auto text-gray-400"
                         stroke="currentColor"
                         fill="none"
                         viewBox="0 0 48 48"
@@ -222,10 +219,10 @@ export default function CacheForm() {
                   </div>
                 </div>
               </div>
-              <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+              <div className="px-4 py-3 text-right bg-gray-50 sm:px-6">
                 <button
                   type="submit"
-                  className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Create
                 </button>

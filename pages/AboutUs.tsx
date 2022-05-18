@@ -29,9 +29,7 @@ export default function AboutUs() {
           </div>
         </div>
         <div className='p-10 mx-5 border rounded-lg bg-slate-100'>
-          <div className='flex justify-center'>
-          <Image src={eddie} width={200} height={200} />
-          </div>
+          
           <div className='p-10 mx-5 border rounded-lg bg-slate-100'>
             <div className='flex justify-center'>
             <Image src={isaiah} width={200} height={200} />
