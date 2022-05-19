@@ -9,7 +9,7 @@
 
 Due to the pandemic, many of us got used to being confined to our homes for good and for bad. However, as things slowly go back to "normal", we wanted to encourage individuals to reconnect with the outdoors once again to promote excercise, social activity, environmental awareness, and a fun escape from work and other daily duties. We hoped to accomplish this by creating a scavenger hunt web application that allows users to find geo-caches and add geo-caches around their surrounding areas or anywhere in the world!
 
-## Back End Repository
+## Backend Repository
 - [Go to Repo](https://github.com/dudes-of-color/cachexplorer-backend)
 
 ## MVP
