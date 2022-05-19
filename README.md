@@ -1,4 +1,4 @@
-# CachExplorer
+# CachExplorer - Frontend
 
 ## Team Members:
 - Eddie Ponce
