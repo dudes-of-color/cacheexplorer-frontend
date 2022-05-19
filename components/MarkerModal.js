@@ -58,8 +58,10 @@ export default function MarkerModal(props) {
         console.log('edit cache clicked')
     }
 
-    const handleDeleteCache = () => {
-        console.log('delete cache clicked')
+    const handleOpenGoogleMaps = () => {
+      let lat = formatLatLng(props.lat, 'lat')
+      let lng = formatLatLng(props.lng, 'lng')
+      window.open(`https://google.com/maps/search/${lat} ${lng}`);
     }
 
     // Handles formatting LatLng float into string representation
@@ -146,23 +148,16 @@ export default function MarkerModal(props) {
                                         type="button"
                                         onClick={() => handleGetDirections()}
                                     >
-                                        Get directions
+                                        Show route
                                     </button>
                                 }
                                 </div>
                                 <button
                                   className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                   type="button"
-                                  onClick={() => handleEditCache()}
+                                  onClick={() => handleOpenGoogleMaps()}
                                 >
-                                  Edit cache
-                                </button>
-                                <button
-                                  className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                  type="button"
-                                  onClick={() => handleDeleteCache()}
-                                >
-                                  Delete Cache
+                                  Open on Google Maps
                                 </button>
                               </div>
                             </div>
