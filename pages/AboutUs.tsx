@@ -28,7 +28,6 @@ export default function AboutUs() {
             <p><button>Contact</button></p>
           </div>
         </div>
-        <div className='p-10 mx-5 border rounded-lg bg-slate-100'>
           
           <div className='p-10 mx-5 border rounded-lg bg-slate-100'>
             <div className='flex justify-center'>
@@ -49,21 +48,9 @@ export default function AboutUs() {
             <div className=''>
               <h2>Taylor White</h2>
               <p>Software Developer</p>
-              <p className='text-justify'>Software developer and aspiring indie game developer with a background in IT and military service. My goal with getting into software development is to open my own non-profit that will teach under-privileged children basic computer skills, programming, and game development to give them invaluable skills in this ever-growing world of technology.</p>
+              <p className='text-justify'>Hiya! My name is Taylor White and I am a Software developer and aspiring indie game developer with a background in IT and military service. My goal with getting into software development is to open my own non-profit that will teach under-privileged children basic computer skills, programming, and game development to give them invaluable skills in this ever-growing world of technology.</p>
               <p>taylorwhite2190@gmail.com</p>
               <p>github.com/TaylorWhite21</p>
-              <p><button>Contact</button></p>
-            </div>
-          </div>
-          <div className='p-10 mx-5 border rounded-lg bg-slate-100'>
-            <div className='flex justify-center'>
-            <Image src={edris} width={200} height={200} />
-            </div>
-            <div className=''>
-              <h2>Edris Berg</h2>
-              <p>Front End Dev!!!</p>
-              <p className='text-justify'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Donec et odio pellentesque diam volutpat. Mollis nunc sed id semper risus. Morbi tristique senectus et netus et. Scelerisque varius morbi enim nunc faucibus a pellentesque sit amet. Ultrices dui sapien eget mi proin sed. Eget aliquet nibh praesent tristique magna. In est ante in nibh mauris cursus mattis. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae. Augue ut lectus arcu bibendum at varius vel. Venenatis lectus magna fringilla urna. Cursus euismod quis viverra nibh cras. Mattis ullamcorper velit sed ullamcorper. Risus at ultrices mi tempus imperdiet. At tellus at urna condimentum mattis. Tincidunt tortor aliquam nulla facilisi cras fermentum odio eu feugiat. Eget egestas purus viverra accumsan in nisl nisi. Fermentum odio eu feugiat pretium nibh ipsum consequat.</p>
-              <p>jane@example.com</p>
               <p><button>Contact</button></p>
             </div>
           </div>
@@ -79,10 +66,9 @@ export default function AboutUs() {
               <p><button>Contact</button></p>
             </div>
           </div>
-        </div>
         <div className='p-10 mx-5 border rounded-lg bg-slate-100'>
           <div className='flex justify-center'>
-          <Image src={eddie} width={200} height={200} />
+          <Image src={edris} width={200} height={200} />
           </div>
           <div className=''>
             <h2>Edris Berg</h2>
