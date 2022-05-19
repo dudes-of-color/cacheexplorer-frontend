@@ -51,7 +51,7 @@ class Upload extends Component {
   }
 
   renderUploadButton() {
-    return <label className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"> 
+    return <label className="relative p-6 font-medium text-white bg-gray-700 rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"> 
          Upload an image 
         <ReactS3Uploader
         style={{display: 'none'}}
