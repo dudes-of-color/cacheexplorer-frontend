@@ -67,18 +67,18 @@ export default function Header() {
           <ul className="flex flex-col mt-4 md:mt-0 md:flex-row md:space-x-8 md:text-sm md:font-medium">
             <li>
               <Link href="/">
-                <a className="text-3xl hover:text-green-600">Home</a>
+                <a className="text-3xl hover:text-green-600 ">Home</a>
               </Link>
             </li>
             <li>
               <Link href="/AboutUs">
-                <a className="text-3xl hover:text-green-600">About The Devs</a>
+                <a className="text-3xl hover:text-green-600">Our Team</a>
               </Link>
             </li>
             <li>
               <Link href="/AddorFind">
                 <a className="text-3xl hover:text-green-600">
-                  Add or Find Cache
+                  Add-Find Cache
                 </a>
               </Link>
             </li>
