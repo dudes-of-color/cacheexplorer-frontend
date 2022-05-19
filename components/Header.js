@@ -53,31 +53,33 @@ export default function Header() {
   }
 
   return (
-    <nav className="border-y-2 bg-gray-800 px-2 py-5 text-white sm:px-4">
-      <div className="container mx-auto flex flex-wrap items-center justify-between">
+    <nav className="px-2 py-4 text-white bg-gray-800 border-y-2 sm:px-4">
+      <div className="container flex flex-wrap items-center justify-between mx-auto">
         <Link href="/">
           <a href="https://placeholder.com">
-            <h3 className="p-5 text-center font-semibold text-black">
-              Cach<span className="text-green-600">E</span>xplorer
+            <h3 className="flex p-5 space-x-4 text-3xl font-semibold text-center animate-pulse">
+              Cach<span className="text-3xl text-green-600">E</span>xplorer
             </h3>
           </a>
         </Link>
-        <span className="self-center whitespace-nowrap text-xl font-semibold"></span>
+        <span className="self-center text-xl font-semibold whitespace-nowrap"></span>
         <div className="hidden w-full md:block md:w-auto" id="mobile-menu">
-          <ul className="mt-4 flex flex-col md:mt-0 md:flex-row md:space-x-8 md:text-sm md:font-medium">
+          <ul className="flex flex-col mt-4 md:mt-0 md:flex-row md:space-x-8 md:text-sm md:font-medium">
             <li>
               <Link href="/">
-                <a className="hover:text-green-600">Home</a>
+                <a className="text-3xl hover:text-green-600 ">Home</a>
               </Link>
             </li>
             <li>
               <Link href="/AboutUs">
-                <a className="hover:text-green-600">About The Devs</a>
+                <a className="text-3xl hover:text-green-600">Our Team</a>
               </Link>
             </li>
             <li>
               <Link href="/AddorFind">
-                <a className="hover:text-green-600">Add or Find Cache</a>
+                <a className="text-3xl hover:text-green-600">
+                  Add-Find Cache
+                </a>
               </Link>
             </li>
 
@@ -85,14 +87,14 @@ export default function Header() {
             {!user?.username && (
               <li>
                 <Link href="/Login">
-                  <a className="hover:text-green-600">Login</a>
+                  <a className="text-3xl hover:text-green-600">Login</a>
                 </Link>
               </li>
             )}
             {!user?.username && (
               <li>
                 <Link href="/SignUp">
-                  <a className="hover:text-green-600">Sign up</a>
+                  <a className="text-3xl hover:text-green-600">Sign up</a>
                 </Link>
               </li>
             )}
