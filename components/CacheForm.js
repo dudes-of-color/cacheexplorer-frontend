@@ -81,16 +81,15 @@ export default function CacheForm() {
 
   return (
     <main className=" min-h-screen bg-[url('../src/hero1.jpg')] bg-cover bg-fixed bg-center px-6 lg:px-32">
-     
-      <div className="flex justify-center py-20">
+      <div className="flex justify-center py-20 ">
         <div className="w-1/3 m-5 md:col-span-2 md:mt-0">
           <form onSubmit={handleSubmit} className="">
             <div className="shadow sm:overflow-hidden sm:rounded-md">
-              <div className="px-4 py-5 space-y-6 bg-white sm:p-6">
+              <div className="px-4 py-5 space-y-6 bg-white bg-sky-500/50 sm:p-6">
                 <div>
                   <label
                     htmlFor="title"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-lg font-medium text-gray-700"
                   >
                     Cache Name
                   </label>
@@ -100,7 +99,7 @@ export default function CacheForm() {
                       type="text"
                       name="title"
                       rows={3}
-                      className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full mt-1 text-3xl border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                       placeholder="Enter Cache Name Here...."
                       defaultValue={''}
                       required
@@ -120,7 +119,7 @@ export default function CacheForm() {
                       type="text"
                       name="location"
                       rows={3}
-                      className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full mt-1 text-3xl border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                       placeholder="Tell us where you hid it"
                       defaultValue={''}
                       required
@@ -131,16 +130,14 @@ export default function CacheForm() {
                   <label
                     htmlFor="description"
                     className="block text-sm font-medium text-gray-700"
-                  >
-                    Description
-                  </label>
+                  ></label>
                   <div className="mt-1">
                     <textarea
                       id="description"
                       type="text"
                       name="description"
                       rows={3}
-                      className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full mt-1 text-base border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                       placeholder="Enter Cache description Here...."
                       defaultValue={''}
                       required
@@ -152,16 +149,14 @@ export default function CacheForm() {
                   <label
                     htmlFor="lat"
                     className="block text-sm font-medium text-gray-700"
-                  >
-                    Latitude
-                  </label>
+                  ></label>
                   <div className="mt-1">
                     <input
                       id="lat"
                       name="lat"
                       rows={3}
-                      className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      placeholder="Enter Coordinates"
+                      className="block w-full mt-1 text-3xl border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                      placeholder="Enter Latitude"
                       defaultValue={''}
                       required
                     />
@@ -171,16 +166,14 @@ export default function CacheForm() {
                   <label
                     htmlFor="long"
                     className="block text-sm font-medium text-gray-700"
-                  >
-                    Longitude
-                  </label>
+                  ></label>
                   <div className="mt-1">
                     <input
                       id="long"
                       name="long"
                       rows={3}
-                      className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      placeholder="Enter Coordinates"
+                      className="block w-full mt-1 text-3xl border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                      placeholder="Enter Longitude"
                       defaultValue={''}
                       required
                     />
@@ -188,9 +181,7 @@ export default function CacheForm() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Cache Photo
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700"></label>
                   <div className="flex justify-center px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md">
                     <div className="space-y-1 text-center">
                       <svg
@@ -207,22 +198,23 @@ export default function CacheForm() {
                           strokeLinejoin="round"
                         />
                       </svg>
-                      <div className="flex text-sm text-gray-600">
-                        <Upload 
-                        handleFinish={handleUploadImageFinished}
-                        onError={handleUploadImageError} />
+                      <div className="flex text-xl text-gray-600 ">
+                        <Upload
+                          handleFinish={handleUploadImageFinished}
+                          onError={handleUploadImageError}
+                        />
                       </div>
-                      <p className="text-xs text-gray-500">
+                      <p className="p-8 text-xl text-slate-900">
                         PNG, JPG, GIF up to 10MB
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="px-4 py-3 text-right bg-gray-50 sm:px-6">
+              <div className="px-3 py-3 pl-32">
                 <button
                   type="submit"
-                  className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="w-9/12 p-2 font-medium text-white uppercase transition duration-300 ease-in-out delay-150 bg-blue-500 bg-gradient-to-b from-gray-700 to-gray-900 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 md:p-4 "
                 >
                   Create
                 </button>
