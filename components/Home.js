@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <main className="relative flex min-h-screen items-center bg-[url('../src/hero1.jpg')] bg-cover bg-fixed bg-center px-6 text-white lg:px-32">
+    <main className="relative flex min-h-full items-center bg-[url('../src/hero1.jpg')] bg-cover bg-fixed bg-center px-6 text-white lg:px-32">
       <section className="my-56 rounded-md bg-black bg-opacity-50 p-5">
         <span className="font-bold uppercase tracking-widest">
           Dudes of Color Presents

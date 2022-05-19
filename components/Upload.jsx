@@ -3,6 +3,7 @@ import ReactS3Uploader from "react-s3-uploader";
 
 const S3_SERVICE_URL = process.env.NEXT_PUBLIC_S3_SERVICE_URL
 
+
 class Upload extends Component {
 
   constructor(props) {
