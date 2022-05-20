@@ -3,7 +3,9 @@
 ## Team Members:
 - Eddie Ponce
 - Isaiah Burkes
-- Osborn DelAngel, Edris Berg, Taylor White
+- Osborn DelAngel
+- Edris Berg
+- Taylor White
 
 ## Problem Domain
 
