@@ -14,6 +14,8 @@ export default function CacheForm() {
 
   // State
   const [imageUrl, setImageUrl] = useState('')
+  const [latitude, setLatitude] = useState()
+  const [longitude, setLongitude] = useState()
 
   // Toast notify message
   const notify = React.useCallback((type, message) => {
@@ -78,6 +80,32 @@ export default function CacheForm() {
         console.log(err)
       })
   }
+
+  function handleSetCurrentLocation() {
+
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(
+                (position) => {
+                  const pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                  };
+                  setLatitude(pos.lat)
+                  setLongitude(pos.lng)
+                  console.log("Heads up! Browser currently has access to your location.")
+                },
+                () => {
+                  // Location permissions are not active
+                  console.log("You need to enable browser location services.")
+                }
+              );
+            } else {
+              // Browser doesn't support Geolocation
+              console.log("Your browser does not support geolocation.")
+            }
+  }
+
 
   return (
     <main className=" min-h-screen bg-[url('../src/hero1.jpg')] bg-cover bg-fixed bg-center px-6 lg:px-32">
@@ -147,43 +175,64 @@ export default function CacheForm() {
                     />
                   </div>
                 </div>
-
-                <div>
-                  <label
-                    htmlFor="lat"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Latitude
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      id="lat"
-                      name="lat"
-                      rows={3}
-                      className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      placeholder="Enter Coordinates"
-                      defaultValue={''}
-                      required
-                    />
-                  </div>
+                <div className ="flex">
+                  <div className="w-10/12">
+                    <div>
+                      <label
+                        htmlFor="lat"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Latitude
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          type="number"
+                          step="money"
+                          id="lat"
+                          name="lat"
+                          rows={3}
+                          className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          placeholder="Enter Coordinates"
+                          defaultValue={''}
+                          required
+                          value={latitude}
+                          onChange={(e) => {setLatitude(e.target.value)}}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="long"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Longitude
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          type="number"
+                          step="any"
+                          id="long"
+                          name="long"
+                          rows={3}
+                          className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          placeholder="Enter Coordinates"
+                          defaultValue={''}
+                          required
+                          value={longitude}
+                          onChange={e => {setLongitude(e.target.value)}} 
+                        />
+                      </div>
+                    </div>
                 </div>
-                <div>
-                  <label
-                    htmlFor="long"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Longitude
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      id="long"
-                      name="long"
-                      rows={3}
-                      className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      placeholder="Enter Coordinates"
-                      defaultValue={''}
-                      required
-                    />
+                <div className="flex justify-right mt-5 w-2/12 ml-10 items-center content-center">
+                    <button
+                      onClick={handleSetCurrentLocation} 
+                      className="bg-indigo-600 border border-transparent shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white font-bold py-2 px-4 rounded-full"
+                      type="button"
+                      data-tooltip-target="location-tooltip"
+                      >
+                      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M12 10c-1.104 0-2-.896-2-2s.896-2 2-2 2 .896 2 2-.896 2-2 2m0-5c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3m-7 2.602c0-3.517 3.271-6.602 7-6.602s7 3.085 7 6.602c0 3.455-2.563 7.543-7 14.527-4.489-7.073-7-11.072-7-14.527m7-7.602c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602"/></svg>
+                    </button>
                   </div>
                 </div>
 
